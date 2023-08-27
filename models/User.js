@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const Thought = require("./Thought");
 
 // Schema to create User model
 const userSchema = new Schema(
@@ -39,6 +40,21 @@ const userSchema = new Schema(
 // Create a virtual called friendCount that retrieves the length of the user's friends array field on query.
 userSchema.virtual('friendCount').get(function () {
   return this.friends.length;
+})
+
+// Remove a user's associated thoughts when deleted.
+userSchema.pre('findOneAndDelete', async function(next) {
+  const user = this;
+
+  const thoughtIds = user.thoughts;
+
+  try {
+    await Thought.deleteMany({_id: {$in: thoughtIds}});
+
+    next();
+  } catch (error) {
+    next(error)
+  }
 })
 
 // Initialize our User model
