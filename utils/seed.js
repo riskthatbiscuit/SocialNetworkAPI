@@ -16,7 +16,7 @@ connection.once('open', async () => {
   const insertedUsersResponse = await User.collection.insertMany(users);
   const insertedUsersIds = Object.values(insertedUsersResponse.insertedIds);
   const insertedUsers = await User.find({ _id: { $in: insertedUsersIds } });
-  console.log(insertedUsers);
+  // console.log(insertedUsers);
 
   // Add random friends to each user
   for (const user of insertedUsers) {
