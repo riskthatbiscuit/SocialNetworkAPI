@@ -5,6 +5,7 @@ This repository contains the backend code for a social media site API. It provid
 # Table of Contents
 
 - [Social Media Site Backend](#social-media-site-backend)
+  - [Walkthrough Video](#walkthrough-video)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Seeding Data](#seeding-data)
@@ -20,6 +21,8 @@ This repository contains the backend code for a social media site API. It provid
   - [Contributing](#contributing)
   - [License](#license)
 
+## Walkthrough Video
+[SocialNetworkAPI Video](SocialNetworkAPI.webm)
 
 ## Prerequisites
 

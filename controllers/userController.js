@@ -63,9 +63,8 @@ module.exports = {
     try {
       const deletedUser = await User.findByIdAndDelete(req.params.userId);
 
-      const thoughtsToDelete = await Thought.find({ userId: deletedUser._id });
-
       // Delete the thoughts
+      const thoughtsToDelete = await Thought.find({ userId: deletedUser._id });
       await Thought.deleteMany({
         _id: { $in: thoughtsToDelete.map((thought) => thought._id) },
       });
