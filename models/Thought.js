@@ -13,7 +13,6 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-      // TODO Use a getter method to format the timestamp on query
     },
     username: {
       type: String,
@@ -36,6 +35,14 @@ thoughtSchema
   .get(function () {
     return this.reactions.length;
   });
+
+// Define a virtual getter for the formatted createdAt timestamp
+thoughtSchema.virtual("formattedCreatedAt").get(function () {
+  return this.createdAt.toLocaleString("en-US", {
+    dateStyle: "medium",
+    timeStyle: "medium",
+  });
+});
 
 // Initialize our Thought model
 const Thought = model('thought', thoughtSchema);
