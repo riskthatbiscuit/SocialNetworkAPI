@@ -3,122 +3,122 @@ const { Thought, User } = require('../models');
 module.exports = {
   async getThoughts(req, res) {
     try {
-      const videos = await Video.find();
-      res.json(videos);
+      const thoughts = await Thought.find();
+      res.json(thoughts);
     } catch (err) {
       res.status(500).json(err);
     }
   },
-  async getSingleVideo(req, res) {
+  async getSingleThought(req, res) {
     try {
-      const video = await Video.findOne({ _id: req.params.videoId })
+      const thought = await Thought.findOne({ _id: req.params.thoughtId })
 
-      if (!video) {
-        return res.status(404).json({ message: 'No video with that ID' });
+      if (!thought) {
+        return res.status(404).json({ message: 'No thought with that ID' });
       }
 
-      res.json(video);
+      res.json(thought);
     } catch (err) {
       res.status(500).json(err);
     }
   },
-  // create a new video
-  async createVideo(req, res) {
+  // create a new thought
+  async createThought(req, res) {
     try {
-      const video = await Video.create(req.body);
+      const thought = await Thought.create(req.body);
       const user = await User.findOneAndUpdate(
         { _id: req.body.userId },
-        { $addToSet: { videos: video._id } },
+        { $addToSet: { thoughts: thought._id } },
         { new: true }
       );
 
       if (!user) {
         return res.status(404).json({
-          message: 'Video created, but found no user with that ID',
+          message: 'Thought created, but found no user with that ID',
         });
       }
 
-      res.json('Created the video 🎉');
+      res.json('Created the thought 🎉');
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
     }
   },
-  async updateVideo(req, res) {
+  async updateThought(req, res) {
     try {
-      const video = await Video.findOneAndUpdate(
-        { _id: req.params.videoId },
+      const thought = await Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
         { $set: req.body },
         { runValidators: true, new: true }
       );
 
-      if (!video) {
-        return res.status(404).json({ message: 'No video with this id!' });
+      if (!thought) {
+        return res.status(404).json({ message: 'No thought with this id!' });
       }
 
-      res.json(video);
+      res.json(thought);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
     }
   },
-  async deleteVideo(req, res) {
+  async deleteThought(req, res) {
     try {
-      const video = await Video.findOneAndRemove({ _id: req.params.videoId });
+      const thought = await Thought.findOneAndRemove({ _id: req.params.thoughtId });
 
-      if (!video) {
-        return res.status(404).json({ message: 'No video with this id!' });
+      if (!thought) {
+        return res.status(404).json({ message: 'No thought with this id!' });
       }
 
       const user = await User.findOneAndUpdate(
-        { videos: req.params.videoId },
-        { $pull: { videos: req.params.videoId } },
+        { thoughts: req.params.thoughtId },
+        { $pull: { thoughts: req.params.thoughtId } },
         { new: true }
       );
 
       if (!user) {
         return res
           .status(404)
-          .json({ message: 'Video created but no user with this id!' });
+          .json({ message: 'Thought created but no user with this id!' });
       }
 
-      res.json({ message: 'Video successfully deleted!' });
+      res.json({ message: 'Thought successfully deleted!' });
     } catch (err) {
       res.status(500).json(err);
     }
   },
-  // Add a video response
-  async addVideoResponse(req, res) {
+  // Add a thought response
+  async addthoughtResponse(req, res) {
     try {
-      const video = await Video.findOneAndUpdate(
-        { _id: req.params.videoId },
+      const thought = await Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
         { $addToSet: { responses: req.body } },
         { runValidators: true, new: true }
       );
 
-      if (!video) {
-        return res.status(404).json({ message: 'No video with this id!' });
+      if (!thought) {
+        return res.status(404).json({ message: 'No thought with this id!' });
       }
 
-      res.json(video);
+      res.json(thought);
     } catch (err) {
       res.status(500).json(err);
     }
   },
-  // Remove video response
-  async removeVideoResponse(req, res) {
+  // Remove thought response
+  async removeThoughtResponse(req, res) {
     try {
-      const video = await Video.findOneAndUpdate(
-        { _id: req.params.videoId },
+      const thought = await Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
         { $pull: { reactions: { responseId: req.params.responseId } } },
         { runValidators: true, new: true }
       )
 
-      if (!video) {
-        return res.status(404).json({ message: 'No video with this id!' });
+      if (!thought) {
+        return res.status(404).json({ message: 'No thought with this id!' });
       }
 
-      res.json(video);
+      res.json(thought);
     } catch (err) {
       res.status(500).json(err);
     }
