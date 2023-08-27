@@ -1,83 +1,40 @@
 const names = [
-  'Aaran',
-  'Aaren',
-  'Aarez',
-  'Aarman',
-  'Aaron',
-  'Aaron-James',
-  'Aarron',
-  'Aaryan',
-  'Aaryn',
-  'Aayan',
-  'Aazaan',
-  'Abaan',
-  'Abbas',
-  'Abdallah',
-  'Abdalroof',
-  'Abdihakim',
-  'Abdirahman',
-  'Abdisalam',
-  'Abdul',
-  'Abdul-Aziz',
-  'Abdulbasir',
-  'Abdulkadir',
-  'Abdulkarem',
-  'Ze',
-  'Zechariah',
-  'Zeek',
-  'Zeeshan',
-  'Zeid',
-  'Zein',
-  'Zen',
-  'Zendel',
-  'Zenith',
-  'Zennon',
-  'Zeph',
-  'Zerah',
-  'Zhen',
-  'Zhi',
-  'Zhong',
-  'Zhuo',
-  'Zi',
-  'Zidane',
-  'Zijie',
-  'Zinedine',
-  'Zion',
-  'Zishan',
-  'Ziya',
-  'Ziyaan',
-  'Zohaib',
-  'Zohair',
-  'Zoubaeir',
-  'Zubair',
-  'Zubayr',
-  'Zuriel',
-  ``,
+  "John Doe",
+  "Jane Smith",
+  "Alex Johnson",
+  "Emily Brown",
+  "Michael Williams",
+  "Olivia Jones",
+  "Daniel Martinez",
+  "Sophia Taylor",
+  "Matthew Davis",
+  "Ava Anderson",
 ];
 
-const descriptionsBodies = [
-  'How to disagree with someone',
-  'iPhone review',
-  'how-to thought',
-  'thought essay on the history of thought games',
-  'How to make money on the App Store',
-  'Learn NextJS in five minutes (Not clickbate)',
-  'Movie trailer',
-  'Hello world',
-  'Another possible solution to the algorithm',
-  'Apology thought',
-  'Submission for startup pitch',
+const thoughtDescriptions = [
+  "Reflecting on the importance of community involvement in tech events",
+  "Exploring the potential of AI-driven creative processes",
+  "Thoughts on the challenges of remote work and how to overcome them",
+  "Sharing experiences from my recent backpacking adventure",
+  "Why learning a new programming language is both exciting and daunting",
+  "The impact of social media on modern relationships",
+  "Exploring the role of ethics in artificial intelligence",
+  "Musings on the art of storytelling and its cultural significance",
+  "How travel broadens the mind and fuels creativity",
+  "The psychology behind decision-making and its implications",
+  "Discussing the rise of renewable energy and its challenges",
+  "Exploring the fusion of technology and nature in urban design",
+  "The future of education: adapting to a digital learning landscape",
+  "Musings on the beauty of mathematics and its hidden elegance",
+  "The allure of space exploration and humanity's cosmic ambitions",
+  "Navigating the complexities of identity in a globalized world",
+  "Thoughts on the power of empathy and its role in social change",
+  "Discussing the evolving definition of success in the modern era",
+  "Exploring the philosophy of mindfulness and its benefits",
+  "How art and creativity serve as reflections of society's soul",
 ];
 
-const possibleReactions = [
-  'I disagree!',
-  'I tried your algorithm, here were the results',
-  'This was awesome',
-  'Thank you for the great content',
-  'Please check out my thought reaction',
-  'Like and subscribe to my channel please',
-  'Reply: The side effects of in app purchases on digital marketplaces',
-];
+const possibleReactions = ["Like", "Sad", "Frown", "Heart"];
 
 const users = [];
 
@@ -85,18 +42,17 @@ const users = [];
 const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 // Gets a random full name
-const getRandomName = () =>
-  `${getRandomArrItem(names)}`;
+const getRandomName = () => `${getRandomArrItem(names)}`;
 
 // Function to generate random thoughts that we can add to the database. Includes thought reactions.
 const getRandomThoughts = (int) => {
   let results = [];
   for (let i = 0; i < int; i++) {
+    const numReactions = Math.floor(Math.random() * 5) + 1;
     results.push({
-      published: Math.random() < 0.5,
-      description: getRandomArrItem(descriptionsBodies),
-      advertiserFriendly: Math.random() < 0.5,
-      reactions: [...getThoughtReactions(3)],
+      thoughtText: getRandomArrItem(thoughtDescriptions),
+      username: getRandomName(),
+      reactions: [...getThoughtReactions(numReactions)],
     });
   }
   return results;
@@ -118,4 +74,4 @@ const getThoughtReactions = (int) => {
 };
 
 // Export the functions for use in seed.js
-module.exports = { getRandomName, getRandomThoughts, getRandomThoughts };
+module.exports = { getRandomName, getRandomThoughts };
