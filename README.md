@@ -112,7 +112,7 @@ The social media site backend provides various API endpoints for user, thought, 
 
 ## Contributing
 
-If you'd like to contribute to the development, please let me know!
+If you'd like to contribute to further development, please let me know!
 
 ## License
 
