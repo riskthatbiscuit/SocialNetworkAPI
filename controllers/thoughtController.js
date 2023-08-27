@@ -22,6 +22,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
+  
   // create a new thought
   async createThought(req, res) {
     try {
@@ -44,6 +45,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
+
   // update a thought
   async updateThought(req, res) {
     try {
@@ -63,6 +65,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
+
   // delete a thought
   async deleteThought(req, res) {
     try {
@@ -89,8 +92,9 @@ module.exports = {
       res.status(500).json(err);
     }
   },
+
   // Add a thought reaction
-  async addthoughtReaction(req, res) {
+  async addThoughtReaction(req, res) {
     try {
       const thought = await Thought.findOneAndUpdate(
         { _id: req.params.thoughtId },
@@ -107,6 +111,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
+
   // Remove thought reaction
   async removeThoughtReaction(req, res) {
     try {
