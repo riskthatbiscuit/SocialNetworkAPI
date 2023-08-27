@@ -51,7 +51,6 @@ const getRandomThoughts = (int) => {
     const numReactions = Math.floor(Math.random() * 5) + 1;
     results.push({
       thoughtText: getRandomArrItem(thoughtDescriptions),
-      // username: getRandomName(),
       reactions: [...getThoughtReactions(numReactions)],
     });
   }

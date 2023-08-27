@@ -42,21 +42,6 @@ userSchema.virtual('friendCount').get(function () {
   return this.friends.length;
 })
 
-// Remove a user's associated thoughts when deleted.
-userSchema.pre('findOneAndDelete', async function(next) {
-  const user = this;
-
-  const thoughtIds = user.thoughts;
-
-  try {
-    await Thought.deleteMany({_id: {$in: thoughtIds}});
-
-    next();
-  } catch (error) {
-    next(error)
-  }
-})
-
 // Initialize our User model
 const User = model('user', userSchema);
 

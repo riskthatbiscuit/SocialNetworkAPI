@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Thought = require("../models/Thought"); 
 
 module.exports = {
   // get all users
@@ -62,11 +63,19 @@ module.exports = {
     try {
       const deletedUser = await User.findByIdAndDelete(req.params.userId);
 
+      const thoughtsToDelete = await Thought.find({ userId: deletedUser._id });
+
+      // Delete the thoughts
+      await Thought.deleteMany({
+        _id: { $in: thoughtsToDelete.map((thought) => thought._id) },
+      });
+
+
       if (!deletedUser) {
         return res.status(404).json({ message: "No user with that ID" });
       }
 
-      res.json({ message: "User deleted successfully" });
+      res.json({ message: "User and associated thoughts deleted successfully" });
     } catch (err) {
       res.status(500).json(err);
     }
